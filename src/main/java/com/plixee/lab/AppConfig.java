@@ -5,13 +5,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-	@Bean(name = { "decoratedMessageService" })
+	@Bean
 	public MessageService decoratedMessageService() {
 		MessageService messageService = new MessageServiceImpl();
 		return new AuthorizationDecorator(messageService);
 	}
 
-	@Bean(name = { "simpleMessageService" })
+	@Bean
 	public MessageService simpleMessageService() {
 		return new MessageServiceImpl();
 	}
