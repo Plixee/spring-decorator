@@ -1,7 +1,6 @@
 package com.plixee.lab;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
 
@@ -14,11 +13,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { AppConfig.class })
 public class AppConfigTest {
 	@Inject
-	private MessageService messageService;
+	private MessageService decoratedMessageService;
+	@Inject
+	private MessageService simpleMessageService;
 
 	@Test
-	public void the_message_service_should_be_decorated() {
-		assertTrue(this.messageService instanceof AuthorizationDecorator);
-		fail("Write the real test.");
+	public void the_decoratedMessageService_should_be_decorated() {
+		assertTrue(this.decoratedMessageService instanceof AuthorizationDecorator);
+	}
+
+	@Test
+	public void the_simpleMessageService_should_not_be_decorated() {
+		assertTrue(this.simpleMessageService instanceof MessageServiceImpl);
 	}
 }

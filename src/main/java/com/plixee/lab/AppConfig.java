@@ -5,10 +5,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-	@Bean
-	public MessageService messageService() {
-		// TODO have a second bean without decoration?
+	@Bean(name = { "decoratedMessageService" })
+	public MessageService decoratedMessageService() {
 		MessageService messageService = new MessageServiceImpl();
 		return new AuthorizationDecorator(messageService);
+	}
+
+	@Bean(name = { "simpleMessageService" })
+	public MessageService simpleMessageService() {
+		return new MessageServiceImpl();
 	}
 }
